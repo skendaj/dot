@@ -1,62 +1,56 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-
-import { Pressable, StyleSheet } from "react-native";
-
-
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  
-  return <FontAwesome size={28} style={styles.tabBarIcon} {...props} />;
-}
+import React from 'react';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Link, Tabs } from 'expo-router';
+import { MaterialCommunityIcons, Entypo, AntDesign } from '@expo/vector-icons';
+import { Text } from 'tamagui';
+import Colors from '~/constants/Colors';
 
 export default function TabLayout() {
-  
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: Colors.primary,
+        tabBarLabelStyle: {
+          fontFamily: 'mon-sb',
+        },
       }}>
       <Tabs.Screen
-        name='index'
+        name="explore"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
-          headerRight: () => (
-            <Link href='/modal' asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name='info-circle'
-                    size={25}
-                    color='gray'
-                    style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          tabBarLabel: ({ focused }) => (
+            <Text color={focused ? '#FD267A' : '#cfd6e4'}>Explore</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="google-maps"
+              size={22}
+              color={focused ? '#FD267A' : '#cfd6e4'}
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="listings"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarLabel: ({ focused }) => (
+            <Text color={focused ? '#FD267A' : '#cfd6e4'}>Listings</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <Entypo name="list" size={22} color={focused ? '#FD267A' : '#cfd6e4'} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text color={focused ? '#FD267A' : '#cfd6e4'}>Profile</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="user" size={22} color={focused ? '#FD267A' : '#cfd6e4'} />
+          ),
         }}
       />
     </Tabs>
   );
 }
-
-
-const styles = StyleSheet.create({
-  headerRight: {
-    marginRight: 15
-  },
-  tabBarIcon: {
-    marginBottom: -3
-  }
-});
