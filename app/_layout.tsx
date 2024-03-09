@@ -1,41 +1,46 @@
-import React, { useEffect } from 'react';
-import { TamaguiProvider } from 'tamagui';
 import { SplashScreen, Stack } from 'expo-router';
+import { useEffect } from 'react';
+import { TamaguiProvider } from 'tamagui';
 import { useFonts } from 'expo-font';
-
 import config from '../tamagui.config';
 import { Auth0Provider } from 'react-native-auth0';
+import authConfig from '../auth0-configuration';
+import { useURL } from 'expo-linking';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-SplashScreen.preventAutoHideAsync();
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+const RootNavigator = () => {
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        gestureDirection: 'horizontal',
+        contentStyle: {
+          backgroundColor: 'transparent',
+        },
+      }}>
+      <Stack.Screen
+        name="(auth)"
+        // options={{
+        //   presentation: 'transparentModal',
+        //   animation: 'slide_from_bottom',
+        //   header: () => null,
+        // }}
+      />
+      <Stack.Screen name="(tabs)" options={{ gestureEnabled: false }} />
+    </Stack>
+  );
 };
 
-export default function RootLayout() {
-  const [loaded] = useFonts({
-    mon: require('../assets/fonts/MontserratRegular.ttf'),
-    'mon-b': require('../assets/fonts/MontserratBold.ttf'),
-    'mon-sb': require('../assets/fonts/MontserratSemiBold.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) return null;
-
+const Layout = () => {
   return (
-    <Auth0Provider domain="com.brunoskendaj.dot" clientId="66axCMWpzIjZZXv3wakeuDOo0WKKGoQG">
-      <TamaguiProvider config={config}>
-        <Stack>
-          <Stack.Screen name="(auth)" options={{ headerShown: true }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </TamaguiProvider>
+    <Auth0Provider domain={authConfig.domain} clientId={authConfig.clientId}>
+      <SafeAreaProvider>
+        <TamaguiProvider config={config}>
+          <RootNavigator />
+        </TamaguiProvider>
+      </SafeAreaProvider>
     </Auth0Provider>
   );
-}
+};
+
+export default Layout;

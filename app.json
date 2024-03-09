@@ -18,7 +18,6 @@
         }
       ]
     ],
-
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
@@ -42,6 +41,14 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.brunoskendaj.dot"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "dc9a6e70-c5da-4e23-a793-597b64cfc357"
+      }
     }
   }
 }

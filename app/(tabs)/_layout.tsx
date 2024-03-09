@@ -1,17 +1,22 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
+import { Link, Tabs, useRouter, useSegments } from 'expo-router';
 import { MaterialCommunityIcons, Entypo, AntDesign } from '@expo/vector-icons';
 import { Text } from 'tamagui';
 import Colors from '~/constants/Colors';
 
-export default function TabLayout() {
+const TabsNavigator = () => {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
         tabBarLabelStyle: {
           fontFamily: 'mon-sb',
+        },
+        headerShown: false,
+        // gestureEnabled: false,
+        tabBarStyle: {
+          height: '12%',
         },
       }}>
       <Tabs.Screen
@@ -53,4 +58,16 @@ export default function TabLayout() {
       />
     </Tabs>
   );
-}
+};
+
+const Layout = () => {
+  return (
+    <>
+      {/* <AppHeader /> */}
+      {/* <ChamberNavigator /> */}
+      <TabsNavigator />
+    </>
+  );
+};
+
+export default Layout;

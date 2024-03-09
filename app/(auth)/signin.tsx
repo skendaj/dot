@@ -1,3 +1,5 @@
+import { SignInScreen } from '~/screens/SignIn';
+
 const Page = () => {
   return <SignInScreen />;
 };
