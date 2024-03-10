@@ -10,17 +10,16 @@ export const SignInScreen = () => {
   const onLogin = async () => {
     try {
       await authorize({}, {});
-      console.log('authorized');
-      // const credentials = await getCredentials();
+      console.log('credentials: ', credentials);
       console.log('user@SignIn: ', user);
-      router.replace(routerPaths.explore);
-      //   }
-      // });
-      // console.log('authorize: ', authorize);
-      // console.log('credentials: ', credentials);
-      // Alert.alert('AccessToken: ' + credentials?.accessToken);
     } catch (error) {
       console.log('error: ', error);
+    } finally {
+      const credentials = await getCredentials();
+      if (credentials && credentials.accessToken) {
+        console.log('here');
+        router.replace(routerPaths.explore);
+      }
     }
   };
 
