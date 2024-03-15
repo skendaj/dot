@@ -1,7 +1,8 @@
-import { Text, View } from 'tamagui';
 import { FlashList } from '@shopify/flash-list';
+import { Dimensions } from 'react-native';
+import { Text, View } from 'tamagui';
 
-const DATA = [
+const data = [
   {
     title: 'First Item',
   },
@@ -11,12 +12,13 @@ const DATA = [
 ];
 export const ListingsScreen = () => {
   return (
-    <View>
+    <View flexGrow={1}>
       <Text>ListingsScreen</Text>
       <FlashList
-        data={DATA}
+        estimatedItemSize={120}
+        estimatedListSize={{ height: 120, width: Dimensions.get('screen').width }}
+        data={data}
         renderItem={({ item }) => <Text>{item.title}</Text>}
-        estimatedItemSize={200}
       />
     </View>
   );
